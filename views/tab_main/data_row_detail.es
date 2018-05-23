@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { zip, get, join, sum } from 'lodash'
 import classNames from 'classnames'
+import FontAwesome from '@skagami/react-fontawesome'
 
 import { Collapse, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { sortieFleetDisplayModeSelector } from '../tab_extra/utils'
@@ -9,9 +10,9 @@ import { RowBase } from './row_base'
 
 const { __ } = window.i18n["poi-plugin-wheres-my-fuel-gone"]
 
-function LeadingIcon({ className, tooltip, tooltipId }) {
+function LeadingIcon({ className="", faName, tooltip, tooltipId }) {
   const icon = (
-    <i className={classNames("table-leading-icon", className)} />
+    <FontAwesome className={classNames("table-leading-icon", className)} name={faName} />
   )
   if (!tooltip) {
     return icon
@@ -28,7 +29,7 @@ function LeadingIcon({ className, tooltip, tooltipId }) {
 
 function SubdetailCollapseIcon({ open }) {
   return (
-    <i className={`fa fa-${open ? 'minus-circle' : 'plus-circle'} table-subdetail-icon`} />
+    <FontAwesome className="table-subdetail-icon" name={open ? 'minus-circle' : 'plus-circle'} />
   )
 }
 
@@ -83,9 +84,9 @@ export const DataRowDetail = connect(
       }
       if (displayFleetInShips) {
         fleetDetail.details = zip(fleetData.ships, fleet).map(([resources, { shipId, bucket }], i) => {
-          const flagshipIcon = (i == 0 || i == fleet1Size) ? <LeadingIcon className="fa fa-flag" /> : null
+          const flagshipIcon = (i == 0 || i == fleet1Size) ? <LeadingIcon faName="flag" /> : null
           const shipName = this.shipName(shipId)
-          const bucketIcon = bucket ? <i className="fa fa-check" /> : ''
+          const bucketIcon = bucket ? <FontAwesome name="check" /> : ''
           return [
             <div key={1}>{flagshipIcon}{shipName}</div>,
           ].concat(resources).concat([bucketIcon])
@@ -112,7 +113,7 @@ export const DataRowDetail = connect(
       supportsDetail.details = supports.map(({ shipId, consumption }, i) => {
         const fleetIcon = (
           <LeadingIcon
-            className="fa fa-ship"
+            faName="ship"
             tooltip={
               <span style={{ wordBreak: 'keep-all' }}>
                 {join(shipId.map(this.shipName), __(', '))}

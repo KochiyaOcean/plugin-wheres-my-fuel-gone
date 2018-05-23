@@ -272,3 +272,9 @@
 #wmfg-main-wrapper .filter-apply-button {
   margin-top: 8px;
 }
+
+#wmfg-main-wrapper .alert {
+  margin-bottom: 18px;
+  padding: 15px;
+  text-align: start;
+}

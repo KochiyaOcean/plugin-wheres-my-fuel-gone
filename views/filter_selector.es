@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Button, Panel, Alert } from 'react-bootstrap'
 import { get, forEach, last, size, partial, map } from 'lodash'
 import classNames from 'classnames'
 import menuTree from './menu'
+import FontAwesome from '@skagami/react-fontawesome'
 
 const { __ } = window.i18n["poi-plugin-wheres-my-fuel-gone"]
 
@@ -309,12 +310,14 @@ export const RuleDisplay = connect(
   render() {
     const { saved, saving } = this.state
     const { ruleTexts } = this.props
-    const className = classNames('fa fa-3x', {
+    const className = classNames({
       'save-filter-icon': !saved,
       'saved-filter-icon': saved,
-      'fa-bookmark': !saving && !saved,
-      'fa-check': !saving && saved,
-      'fa-ellipsis-h': saving,
+    })
+    const faName = classNames({
+      'bookmark': !saving && !saved,
+      'check': !saving && saved,
+      'ellipsis-h': saving,
     })
     return (
       <div>
@@ -326,15 +329,16 @@ export const RuleDisplay = connect(
                 {ruleTexts.map((ruleText, i) => (
                   <li key={`applied-rule-${i}`}>
                     {ruleText}
-                    <i
-                      className='fa fa-times remove-rule-icon'
+                    <FontAwesome
+                      name="times"
+                      className='remove-rule-icon'
                       onClick={partial(this.onRemove, i)}
                     />
                   </li>
                 ))}
               </ul>
               <div style={{ position: 'absolute', right: 0, top: 0, height: '100%', verticalAlign: 'middle' }}>
-                <i onClick={this.onSave} className={className} />
+                <FontAwesome onClick={this.onSave} className={className} name={faName} size="3x" />
               </div>
             </div>
           </Alert>

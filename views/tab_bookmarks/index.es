@@ -6,6 +6,7 @@ import InlineEdit from 'react-edit-inplace'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { sortBy, toPairs, zip } from 'lodash'
+import FontAwesome from '@skagami/react-fontawesome'
 
 import { MaterialIcon } from 'views/components/etc/icon'
 import { arraySum } from 'views/utils/tools'
@@ -145,7 +146,7 @@ const BookmarkTile = connect(
     let body
     let body2
     if (filter.errors) {
-      title = [<i className='fa fa-exclamation-triangle icon-margin-right-5' key={1}></i>,
+      title = [<FontAwesome name='exclamation-triangle' className="icon-margin-right-5" key={1} />,
         <span key={2}>{__('Invalid filter')}</span>]
       body = <ul className='bookmark-ul'>
         {
@@ -166,9 +167,10 @@ const BookmarkTile = connect(
         change={this.props.onChangeName}
         stopPropagation
       />,
-      <i
-        className='fa fa-pencil-square-o bookmark-title-icon-hover-show grey-icon icon-margin-left-5'
-        key='name-edit-icon'></i> ]
+      <FontAwesome
+        name="pencil-square-o"
+        className='bookmark-title-icon-hover-show grey-icon icon-margin-left-5'
+        key='name-edit-icon' /> ]
       body = (
         <Row>
           {
@@ -183,7 +185,7 @@ const BookmarkTile = connect(
           }
           <Col xs={9}>
             <div className='bookmark-icon-wrapper'>
-              <i className='fa fa-paper-plane-o'></i>
+              <FontAwesome name='paper-plane-o' />
             </div>
             {__("%s sorties", num)}
           </Col>
@@ -208,9 +210,10 @@ const BookmarkTile = connect(
         <div
           style={{ position: 'absolute', top: 0, right: 0 }}
           className={removeWrapperStyle}>
-          <i
-            className='fa fa-trash-o remove-rule-icon'
-            onClick={this.props.onRemoveFilter}></i>
+          <FontAwesome
+            name="trash-o"
+            className='remove-rule-icon'
+            onClick={this.props.onRemoveFilter} />
         </div>
       </div>
     )
