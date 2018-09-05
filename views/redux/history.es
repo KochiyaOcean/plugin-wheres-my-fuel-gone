@@ -1,4 +1,4 @@
-const { copyIfSame } = window
+import { copyIfSame } from 'views/utils/tools'
 import { pluginDataSelector } from './selectors'
 import { get } from 'lodash'
 
