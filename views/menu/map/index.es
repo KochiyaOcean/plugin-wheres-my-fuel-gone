@@ -59,19 +59,23 @@ export default {
         }
       },
       textFunc: (path, value) =>
-        __('In %s difficulty', __(['', 'Easy', 'Medium', 'Hard'][value])),
+        __('In %s difficulty', __(['', 'Casual', 'Easy', 'Medium', 'Hard'][value])),
       sub: {
+        '_cs': {
+          title: __('Casual'),
+          value: 1,
+        },
         '_ez': {
           title: __('Easy'),
-          value: 1,
+          value: 2,
         },
         '_md': {
           title: __('Medium'),
-          value: 2,
+          value: 3,
         },
         '_hd': {
           title: __('Hard'),
-          value: 3,
+          value: 4,
         },
       },
     },
