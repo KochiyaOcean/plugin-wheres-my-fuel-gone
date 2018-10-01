@@ -1,11 +1,13 @@
-import { promisify } from 'bluebird'
-import { writeFile, readJson, access, move, F_OK } from 'fs-extra'
+import { readJson, access, move, F_OK } from 'fs-extra'
 import { map, get } from 'lodash'
 import { observer } from 'redux-observers'
 
 import { pluginDataSelector } from './selectors'
 import { store } from 'views/create-store'
+import { ioWorker } from 'views/services/worker'
 import { pluginDataPath, currentAdmiralId } from '../utils'
+
+ioWorker.initialize()
 
 // Return whether a re-read is needed
 export const migrateDataPath = async (admiralId, nicknameId) => {
@@ -13,14 +15,14 @@ export const migrateDataPath = async (admiralId, nicknameId) => {
   const newPath = pluginDataPath(admiralId)
   try {
     try {
-      await promisify(access)(newPath, F_OK)
+      await access(newPath, F_OK)
     } catch(e) {
       try {
-        await promisify(access)(oldPath, F_OK)
+        await access(oldPath, F_OK)
       } catch(e) {
         return false
       }
-      await promisify(move)(oldPath, newPath)
+      await move(oldPath, newPath)
       return true
     }
   } catch(e) {
@@ -37,10 +39,9 @@ const dataToSave = {
 }
 
 function saveDataFile(data, filename) {
+  if (!data || Object.keys(data).length === 0) return
   const path = pluginDataPath(currentAdmiralId(), filename)
-  if (typeof data !== 'string')
-    data = JSON.stringify(data)
-  return promisify(writeFile)(path, data)
+  return ioWorker.port.postMessage(['WriteFile', path, data])
 }
 
 export const saveDataObservers = map(dataToSave, (filename, field) =>
@@ -56,7 +57,7 @@ export function readDataFiles(admiralId) {
     const path = pluginDataPath(admiralId, filename)
     let data
     try {
-      data = await promisify(readJson)(path)
+      data = await readJson(path)
     } catch(e) {
       console.warn(`Unable to read ${path}: `, e.stack)
       data = undefined

@@ -1,18 +1,18 @@
-/* global __ */
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import FontAwesome from '@skagami/react-fontawesome'
 
 import { RowBase } from './row_base'
 import { DataRowDetail } from './data_row_detail'
 
+const { __ } = window.i18n["poi-plugin-wheres-my-fuel-gone"]
+
 function CollapseIcon(props) {
   // North=angle 0, East=angle 90, South=angle 180, West=angle 270
   const angle = props.open ? props.openAngle : props.closeAngle
-  const rotateClass = angle == 0 ? '' : `fa-rotate-${angle}`
   return (
-    <i className={`fa fa-chevron-circle-up ${rotateClass} collapse-icon`} style={props.style}></i>
+    <FontAwesome className="collapse-icon" name="chevron-circle-up" rotate={angle} style={props.style} />
   )
 }
 

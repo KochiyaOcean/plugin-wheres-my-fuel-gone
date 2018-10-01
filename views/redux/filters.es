@@ -10,7 +10,7 @@ export default function reducer(state={}, action) {
       ...state,
       [Date.now()]: {
         rules: cloneDeep(action.rules),
-        name: window.__('New filter'),
+        name: window.i18n["poi-plugin-wheres-my-fuel-gone"].__('New filter'),
       },
     }
   case '@@poi-plugin-wheres-my-fuel-gone/filters/remove':
