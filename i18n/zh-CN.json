@@ -85,7 +85,7 @@
   " to %s": "到%s",
   "now": "现在",
   "current ": "当前",
-  "During the %(current)s%(cycle)s cycle%(afterText)s%(beforeText)s": "在%(afterText)s%(beforeText)s的%(current)s%(cycle)s周期内",
+  "During the {{current}} {{cycle}} cycle {{afterText}} {{beforeText}}": "在{{afterText}}{{beforeText}}的{{current}}{{cycle}}周期内",
   "Before %s": "在%s之前",
   "After %s": "在%s之后",
   "Extra": "设置",

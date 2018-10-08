@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-const { __ } = window.i18n["poi-plugin-wheres-my-fuel-gone"]
+const { __, fixedT } = window.i18n["poi-plugin-wheres-my-fuel-gone"]
 
 function timeStr(time) {
   return moment(time).format('YYYY-M-D HH:mm')
@@ -221,11 +221,11 @@ export default {
     const beforeTime = value.before ? timeStr(value.before) : __('now')
     const beforeText = __(' to %s', beforeTime)
     const afterText = value.after ? __(' from %s', timeStr(value.after)) : ''
-    return __('During the %(current)s%(cycle)s cycle%(afterText)s%(beforeText)s', {
-      current: current,
-      cycle: cycle,
-      afterText: afterText,
-      beforeText: beforeText,
+    return fixedT('During the {{current}} {{cycle}} cycle {{afterText}} {{beforeText}}', {
+      current,
+      cycle,
+      afterText,
+      beforeText,
     })
   },
   sub: {
